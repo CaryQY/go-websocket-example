@@ -19,8 +19,8 @@ func init() {
 	}
 }
 
-// go:embed *.html
-// go:embed rest_api_example.png
+//go:embed *.html
+//go:embed rest_api_example.png
 var f embed.FS
 
 func main() {
