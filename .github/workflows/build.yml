@@ -20,12 +20,13 @@ jobs:
             goos: windows
     steps:
       - uses: actions/checkout@v3
-      - uses: wangyoucao577/go-release-action@v1.30
+      - uses: wangyoucao577/go-release-action@v1.35
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           goos: ${{ matrix.goos }}
           goarch: ${{ matrix.goarch }}
           goversion: 1.19
+          ldflags: -X main.mode=prod
           binary_name: "go-websocket-example"
           extra_files: LICENSE README.md
 
@@ -48,7 +49,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
       - run: go install github.com/mitchellh/gox@latest # setup gox
       - run: make gox-linux
-      - uses: docker/build-push-action@v3
+      - uses: docker/build-push-action@v4
         with:
           context: .
           platforms: linux/arm64,linux/amd64
