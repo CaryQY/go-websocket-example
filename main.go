@@ -1,8 +1,10 @@
 package main
 
 import (
+	"embed"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"html/template"
 )
 
 var (
@@ -17,6 +19,10 @@ func init() {
 	}
 }
 
+// go:embed *.html
+// go:embed rest_api_example.png
+var f embed.FS
+
 func main() {
 	if mode == "prod" {
 		gin.SetMode(gin.ReleaseMode)
@@ -24,9 +30,10 @@ func main() {
 
 	r := gin.Default()
 	r.Use(gin.Recovery())
+	// https://github.com/gin-gonic/examples/blob/master/assets-in-binary/example02/main.go
+	tmpl := template.Must(template.New("").ParseFS(f, "*.html"))
+	r.SetHTMLTemplate(tmpl)
 
-	r.Static("/assets", "./assets")
-	r.LoadHTMLGlob("./*.html")
 	r.GET("/", indexHandler)
 	r.GET("/ws", wsHandler)
 	r.GET("/api", apiHandler)

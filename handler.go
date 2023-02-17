@@ -70,5 +70,11 @@ func apiHandler(c *gin.Context) {
 }
 
 func staticFileHandler(c *gin.Context) {
-	c.File("./rest_api_example.png")
+	file, err := f.ReadFile("rest_api_example.png")
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(200, gin.H{"code": 500, "msg": err.Error()})
+		return
+	}
+	c.Data(200, "image/png", file)
 }

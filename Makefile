@@ -12,10 +12,10 @@ build-docker-image:
 	docker buildx build --platform linux/amd64,linux/arm64 -t caryqy2/go-websocket-example . --push
 
 gox-linux:
-	gox -osarch="linux/amd64 linux/arm64" -output="build/go-websocket-example_{{.OS}}_{{.Arch}}"
+	gox -ldflags '-s -w -X "main.mode=prod"' -osarch="linux/amd64 linux/arm64" -output="build/go-websocket-example_{{.OS}}_{{.Arch}}"
 
 gox-all:
-	gox -osarch="darwin/amd64 darwin/arm64 linux/amd64 linux/arm64 windows/amd64" -output="build/go-websocket-example_{{.OS}}_{{.Arch}}"
+	gox -ldflags '-s -w -X "main.mode=prod"' -osarch="darwin/amd64 darwin/arm64 linux/amd64 linux/arm64 windows/amd64" -output="build/go-websocket-example_{{.OS}}_{{.Arch}}"
 
 clean:
 	rm -f build/go-websocket-example_*
