@@ -1,0 +1,37 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gows
+  labels:
+    app: gows
+    service: gows
+spec:
+  ports:
+    - port: 8888
+      name: http
+  selector:
+    app: gows
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gows
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gows
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: gows
+        version: v1
+    spec:
+      containers:
+        - name: gows
+          image: caryqy2/go-websocket-example
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8888
+---

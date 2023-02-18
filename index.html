@@ -86,7 +86,7 @@
 <script>
   var host = window.location.host;
 {{ if eq .mode "prod" }}
-  var ws = new WebSocket('ws://'+host+'/ws');
+  var ws = new WebSocket('wss://'+host+'/ws');
 {{ else }}
   var ws = new WebSocket('ws://'+host+'/ws');
 {{ end }}
