@@ -85,7 +85,11 @@
 </div>
 <script>
   var host = window.location.host;
+{{ if eq .mode "prod" }}
   var ws = new WebSocket('ws://'+host+'/ws');
+{{ else }}
+  var ws = new WebSocket('ws://'+host+'/ws');
+{{ end }}
   var $message = $('#message');
 
   ws.onopen = function(){
