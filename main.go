@@ -38,6 +38,9 @@ func main() {
 	r.GET("/ws", wsHandler)
 	r.GET("/api", apiHandler)
 	r.GET("/rest_api_example.png", staticFileHandler)
+	r.GET("/healthz", func(c *gin.Context) {
+		c.JSON(200, gin.H{"code": 200})
+	})
 
 	fmt.Println(r.Run(":8888"))
 }

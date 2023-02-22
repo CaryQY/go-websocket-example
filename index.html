@@ -119,10 +119,12 @@
     }
   };
   ws.onclose = function(ev){
+    console.log("close",ev)
     $message.attr("class", 'label label-important');
     $message.text('closed');
   };
   ws.onerror = function(ev){
+    console.log("error",ev)
     $message.attr("class", 'label label-warning');
     $message.text('error occurred');
   };
